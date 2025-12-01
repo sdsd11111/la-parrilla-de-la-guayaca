@@ -80,7 +80,7 @@ export default function GoogleTranslate({ inHeader = false }: GoogleTranslatePro
         },
         'google_translate_element'
       );
-      
+
       setIsInitialized(true);
       console.log('Google Translate initialized successfully');
       return true;
@@ -93,13 +93,13 @@ export default function GoogleTranslate({ inHeader = false }: GoogleTranslatePro
   // Load Google Translate script
   useEffect(() => {
     setMounted(true);
-    
+
     // Only run on client-side
     if (typeof document === 'undefined') return;
-    
+
     // Prevent body scroll shift
     document.body.style.top = "0px";
-    
+
     // Cleanup function
     const cleanup = () => {
       try {
@@ -107,7 +107,7 @@ export default function GoogleTranslate({ inHeader = false }: GoogleTranslatePro
         if (script?.parentNode) {
           script.parentNode.removeChild(script);
         }
-        
+
         // @ts-ignore
         if (window[CALLBACK_NAME]) {
           // @ts-ignore
@@ -150,7 +150,7 @@ export default function GoogleTranslate({ inHeader = false }: GoogleTranslatePro
     };
 
     document.body.appendChild(script);
-    
+
     return () => {
       cleanup();
       setMounted(false);
@@ -161,7 +161,7 @@ export default function GoogleTranslate({ inHeader = false }: GoogleTranslatePro
   // Attempt to change language using Google's internal select (no page reload)
   const trySelectChange = useCallback((langCode: string) => {
     if (!mounted) return false;
-    
+
     const select = document.querySelector<HTMLSelectElement>(".goog-te-combo");
     if (!select) return false;
 
@@ -185,7 +185,7 @@ export default function GoogleTranslate({ inHeader = false }: GoogleTranslatePro
   // Robust language switching with fallback to cookie-based reload
   const setLanguage = useCallback((lang: "en" | "es") => {
     if (!mounted) return;
-    
+
     // Update UI immediately for better UX
     setActive(lang);
 
@@ -203,27 +203,27 @@ export default function GoogleTranslate({ inHeader = false }: GoogleTranslatePro
         clearInterval(interval);
         return;
       }
-      
+
       attempts++;
       const select = document.querySelector<HTMLSelectElement>(".goog-te-combo");
-      
+
       if (select) {
         try {
           select.value = lang;
           const ev = new Event('change', { bubbles: true });
           select.dispatchEvent(ev);
-          
+
           // Also try the old method for compatibility
           const oldEv = new Event('change', { bubbles: true });
           select.dispatchEvent(oldEv);
-          
+
           clearInterval(interval);
           return;
         } catch (error) {
           console.error('Error dispatching language change event:', error);
         }
       }
-      
+
       if (attempts >= maxAttempts) {
         clearInterval(interval);
         // If we can't find the select, fall back to page reload
@@ -232,7 +232,7 @@ export default function GoogleTranslate({ inHeader = false }: GoogleTranslatePro
         }
       }
     }, intervalMs);
-    
+
     return () => clearInterval(interval);
   }, [mounted]);
 
@@ -255,7 +255,7 @@ export default function GoogleTranslate({ inHeader = false }: GoogleTranslatePro
 
   // Determinar el texto del botón basado en el idioma activo
   const buttonText = active === "es" ? "English" : "Español";
-  
+
   // Efecto para detectar cambios en el idioma
   useEffect(() => {
     const checkLanguage = () => {
@@ -264,7 +264,7 @@ export default function GoogleTranslate({ inHeader = false }: GoogleTranslatePro
         setActive(cookie[2] as "es" | "en");
       }
     };
-    
+
     // Verificar el idioma cada segundo
     const interval = setInterval(checkLanguage, 1000);
     return () => clearInterval(interval);
@@ -287,38 +287,43 @@ export default function GoogleTranslate({ inHeader = false }: GoogleTranslatePro
         style={{
           position: 'relative',
           display: 'inline-block',
-          marginLeft: '1rem',
           zIndex: 10,
         }}
       >
         <button
           onClick={() => setLanguage(active === "es" ? "en" : "es")}
+          className="p-2 rounded-lg transition-all duration-200 hover:scale-110"
           style={{
-            ...btnBase,
-            background: "#3b82f6",
-            color: 'white',
-            minWidth: '90px',
-            textAlign: 'center',
-            padding: '0.4rem 0.8rem',
-            fontSize: '0.9rem',
-            fontWeight: 500,
-            borderRadius: '0.375rem',
+            color: '#FFFFFF',
+            background: 'transparent',
             border: 'none',
             cursor: 'pointer',
-            transition: 'all 0.2s ease',
-            boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
           }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.opacity = '0.9';
-            e.currentTarget.style.transform = 'translateY(-1px)';
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = '#F49D00';
           }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.opacity = '1';
-            e.currentTarget.style.transform = 'translateY(0)';
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = '#FFFFFF';
           }}
           aria-label={active === "es" ? "Cambiar a inglés" : "Switch to Spanish"}
+          title={active === "es" ? "English" : "Español"}
         >
-          {buttonText}
+          {/* Globe Icon SVG */}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <line x1="2" y1="12" x2="22" y2="12" />
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+          </svg>
         </button>
       </div>
 

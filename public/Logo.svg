@@ -1,0 +1,30 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="95" fill="#1A1A1A" stroke="#F49D00" stroke-width="3"/>
+  
+  <!-- Grill grid -->
+  <g stroke="#F49D00" stroke-width="3" stroke-linecap="round">
+    <!-- Vertical lines -->
+    <line x1="60" y1="80" x2="60" y2="130"/>
+    <line x1="80" y1="80" x2="80" y2="130"/>
+    <line x1="100" y1="80" x2="100" y2="130"/>
+    <line x1="120" y1="80" x2="120" y2="130"/>
+    <line x1="140" y1="80" x2="140" y2="130"/>
+    
+    <!-- Horizontal lines -->
+    <line x1="50" y1="90" x2="150" y2="90"/>
+    <line x1="50" y1="110" x2="150" y2="110"/>
+  </g>
+  
+  <!-- Flames -->
+  <g fill="#F49D00" opacity="0.8">
+    <path d="M70 130 Q65 120 70 110 Q72 115 70 120 Q68 125 70 130"/>
+    <path d="M90 130 Q85 118 90 108 Q92 115 90 122 Q88 126 90 130"/>
+    <path d="M110 130 Q105 120 110 110 Q112 115 110 120 Q108 125 110 130"/>
+    <path d="M130 130 Q125 118 130 108 Q132 115 130 122 Q128 126 130 130"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="100" y="55" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#F49D00" text-anchor="middle">LA PARRILLA</text>
+  <text x="100" y="165" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#FFFFFF" text-anchor="middle">GUAYACA</text>
+</svg>

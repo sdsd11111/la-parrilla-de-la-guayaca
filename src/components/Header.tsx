@@ -1,6 +1,10 @@
-import Link from 'next/link';
+'use client';
+
+import * as React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { Menu } from 'lucide-react';
 import dynamic from 'next/dynamic';
 
 const GoogleTranslate = dynamic(
@@ -9,51 +13,79 @@ const GoogleTranslate = dynamic(
 );
 
 interface HeaderProps {
-  logo: string;
-  navItems: { label: string; href: string }[];
+  logo?: string;
   className?: string;
+  onMenuClick?: () => void;
 }
 
-export const Header = ({ logo, navItems, className }: HeaderProps) => {
+export const Header = ({ logo = '/Logo.png', className, onMenuClick }: HeaderProps) => {
+
   return (
-    <header className={cn("bg-white shadow-md w-full", className)}>
-      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <div className="flex items-center">
-          <Link href="/" className="flex items-center">
-            <Image 
-              src={logo} 
-              alt="Logo" 
-              width={120} 
-              height={40} 
-              className="h-10 w-auto"
-              priority
-            />
-          </Link>
-        </div>
-        
-        <nav className="hidden md:flex space-x-8">
-          {navItems.map((item, index) => (
-            <Link 
-              key={index} 
-              href={item.href}
-              className="text-gray-700 hover:text-blue-600 transition-colors"
+    <header
+      className={cn(
+        "fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300",
+        className
+      )}
+      style={{
+        backgroundColor: '#1A1A1A',
+        height: '70px'
+      }}
+    >
+      <div className="container mx-auto px-4 h-full">
+        <div className="flex justify-between items-center h-full">
+          {/* Left Section: Logo + Title */}
+          <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+            {/* Logo */}
+            <div className="relative h-10 w-10 flex-shrink-0">
+              <Image
+                src={logo}
+                alt="La Parrilla de la Guayaca Logo"
+                fill
+                className="object-contain"
+                priority
+                onError={(e) => {
+                  // Fallback si no existe el logo
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                }}
+              />
+            </div>
+
+            {/* Title */}
+            <h1
+              className="text-white text-lg md:text-xl font-bold leading-tight"
+              style={{ color: '#FFFFFF' }}
             >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-        
-        <div className="flex items-center gap-4">
-          <div className="hidden md:block">
+              La Parrilla de la Guayaca{' '}
+              <span className="hidden md:inline font-extrabold text-orange-500" style={{ color: '#F49D00' }}>
+                Loja
+              </span>
+            </h1>
+          </Link>
+
+          {/* Right Section: Language Button + Menu Button */}
+          <div className="flex items-center gap-4">
+            {/* Language Switcher Button */}
             <GoogleTranslate inHeader={true} />
+
+            {/* Hamburger Menu Button */}
+            <button
+              onClick={onMenuClick}
+              className="p-2 rounded-lg transition-all duration-200 hover:scale-110 active:scale-95"
+              style={{
+                color: '#F49D00',
+              }}
+              aria-label="Abrir menú"
+              title="Menú"
+            >
+              <Menu className="w-7 h-7" strokeWidth={2.5} />
+            </button>
           </div>
-          <button className="md:hidden">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
-            </svg>
-          </button>
         </div>
       </div>
+
+      {/* Hidden Google Translate Element */}
+      <div id="google_translate_element" style={{ display: 'none' }} />
     </header>
   );
 };
