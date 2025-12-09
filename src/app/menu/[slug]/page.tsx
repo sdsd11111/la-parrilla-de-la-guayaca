@@ -160,6 +160,12 @@ export default async function MenuDynamicPage({ params }: { params: Promise<{ sl
         );
     }
 
+    import { LLMHiddenContent } from "@/components/LLMHiddenContent";
+
+    // ... (imports remain the same)
+
+    // ... (rest of the file until the return statement)
+
     return (
         <MainLayout>
             {/* Hero Section - Reusing HeroAlitas for consistency */}
@@ -182,6 +188,27 @@ export default async function MenuDynamicPage({ params }: { params: Promise<{ sl
                     </div>
                 </div>
             </section>
+
+            <LLMHiddenContent>
+                <h1>{item.title} - La Parrilla de la Guayaca</h1>
+                <p>{item.description}</p>
+                <p>
+                    Disfruta de este delicioso plato de nuestra categoría <strong>{item.category}</strong>.
+                    Preparado con los mejores ingredientes y el sabor único de nuestra cocina.
+                </p>
+
+                <h2>Detalles</h2>
+                <ul>
+                    <li><strong>Plato:</strong> {item.title}</li>
+                    <li><strong>Categoría:</strong> {item.category}</li>
+                    <li><strong>Disponibilidad:</strong> Disponible en nuestro local y a domicilio.</li>
+                </ul>
+
+                <h2>¿Cómo pedir?</h2>
+                <p>
+                    Haz tu pedido por WhatsApp o visítanos en el Sector del Valle, Loja.
+                </p>
+            </LLMHiddenContent>
         </MainLayout>
     );
 }

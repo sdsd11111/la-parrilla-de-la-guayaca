@@ -34,3 +34,12 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## 📚 Documentación del Proyecto
+
+### Visibilidad para IA (LLMs)
+Hemos implementado un sistema para que ChatGPT, Claude y otros LLMs puedan leer el contenido de nuestras páginas interactivas.
+
+- **Guía Completa**: [`docs/LLM-VISIBILITY-GUIDE.md`](docs/LLM-VISIBILITY-GUIDE.md)
+- **Plantilla para Nuevas Páginas**: [`docs/templates/service-page-template.tsx`](docs/templates/service-page-template.tsx)
+- **Workflow de Agente**: `.agent/workflows/create-service-page.md`

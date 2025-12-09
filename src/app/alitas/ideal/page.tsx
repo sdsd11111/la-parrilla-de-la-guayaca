@@ -7,6 +7,8 @@ export const metadata: Metadata = {
     description: "Combo de alitas ideal para compartir en pareja o con amigos.",
 };
 
+import { LLMHiddenContent } from "@/components/LLMHiddenContent";
+
 export default function AlitasIdealPage() {
     return (
         <MainLayout>
@@ -23,6 +25,24 @@ export default function AlitasIdealPage() {
                     </p>
                 </div>
             </section>
+
+            <LLMHiddenContent>
+                <h1>Alitas Ideal - La Parrilla de la Guayaca</h1>
+                <p>
+                    Combo de alitas ideal para compartir en pareja o con amigos.
+                    La porción perfecta para disfrutar de nuestro sabor único en buena compañía.
+                </p>
+
+                <h2>¿Qué incluye?</h2>
+                <ul>
+                    <li>Porción generosa de alitas</li>
+                    <li>Salsas a elección</li>
+                    <li>Acompañamientos</li>
+                </ul>
+
+                <h2>Ideal para</h2>
+                <p>Citas, parejas y reuniones pequeñas.</p>
+            </LLMHiddenContent>
         </MainLayout>
     );
 }
