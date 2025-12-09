@@ -3,6 +3,7 @@ import { Sidebar } from "@/components/Sidebar";
 import { Footer } from "@/components/Footer";
 import { HeroAlitas } from "@/components/HeroAlitas"; // Reusing Hero component
 import { MainLayout } from "@/components/MainLayout";
+import { LLMHiddenContent } from "@/components/LLMHiddenContent";
 
 // Data mapping for menu items
 const menuItemsData: Record<string, { title: string; description: string; category: string }> = {
@@ -160,7 +161,7 @@ export default async function MenuDynamicPage({ params }: { params: Promise<{ sl
         );
     }
 
-    import { LLMHiddenContent } from "@/components/LLMHiddenContent";
+
 
     // ... (imports remain the same)
 
